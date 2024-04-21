@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register for Exam</title>
+  <style>
+    /* Custom styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa; /* Light gray background */
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333; /* Dark text color */
+    }
+    .form-input {
+      margin-bottom: 10px;
+    }
+    .form-input label {
+      display: block;
+      font-weight: bold;
+    }
+    .form-input input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .form-submit {
+      text-align: center;
+    }
+    .form-submit button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Register for Exam</h2>
+
+    <form action="/register" th:action="@{/register}" method="post">
+      <!-- Hidden field to store exam title -->
+      
+      <div class="form-input">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required>
+      </div>
+      <div class="form-input">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required>
+      </div>
+      <div class="form-input">
+        <label for="college">College:</label>
+        <input type="text" id="college" name="college" required>
+      </div>
+      <div class="form-input">
+        <label for="department">Department:</label>
+        <input type="text" id="department" name="department" required>
+      </div>
+      <div class="form-input">
+        <label for="yearOfStudy">Year of Study:</label>
+        <input type="text" id="yearOfStudy" name="yearOfStudy" required>
+      </div>
+      <div class="form-submit">
+        <button type="submit">Register</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Successful</title>
+  <style>
+    /* Custom styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa; /* Light gray background */
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #007bff; /* Primary color */
+    }
+    p {
+      margin-bottom: 20px;
+    }
+    .btn {
+      background-color: #007bff; /* Primary color */
+      color: #fff; /* White text color */
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease; /* Smooth color transition */
+    }
+    .btn:hover {
+      background-color: #0056b3; /* Darker shade on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Exam is added Successfully!</h2>
+   
+    <a th:href="@{/registration}" class="btn">Back to Home</a>
+  </div>
+</body>
+</html>

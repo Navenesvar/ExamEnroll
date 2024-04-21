@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Display</title>
+  <style>
+    /* Custom styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa; /* Light gray background */
+      margin: 0;
+      padding: 0;
+    }
+    
+    .navbar-brand {
+  display: inline-block;
+  vertical-align: middle; /* Align vertically to center */
+}
+
+.welcome-container {
+  display: inline-flex;
+  align-items: center; /* Align items vertically */
+  margin-left: auto; /* Pushes the container to the right */
+}
+
+.welcome-container h3 {
+  margin-right: 10px; /* Add some spacing between the Welcome message and the Logout link */
+}
+
+    .navbar-brand img {
+      height: 30px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333; /* Dark text color */
+    }
+    .exam-card {
+      background-color: #fff; /* White card background */
+      border: 1px solid #dee2e6; /* Gray border */
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+      transition: transform 0.3s ease; /* Smooth scale transition */
+      margin-bottom: 20px;
+    }
+    .exam-card:hover {
+      transform: translateY(-5px); /* Lift card on hover */
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Increase shadow on hover */
+    }
+    .card-body {
+      padding: 20px;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #007bff; /* Primary color */
+      margin-bottom: 10px;
+    }
+    .card-text {
+      font-size: 16px;
+      color: #555; /* Text color */
+      margin-bottom: 20px;
+    }
+    .btn {
+      background-color: #007bff; /* Primary color */
+      color: #fff; /* White text color */
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease; /* Smooth color transition */
+    }
+    .btn:hover {
+      background-color: #0056b3; /* Darker shade on hover */
+    }
+    /* Profile page styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+      .logout-link {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: black;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+  <div class="navbar-brand">
+    <a href="/profile">
+      <img src="/images/profile.jpg" alt="Profile">
+    </a>
+  </div>
+  <div class="welcome-container">
+    <h3>Welcome</h3>
+    <a th:href="@{/login}" class="logout-link">Logout</a>
+  </div>
+</nav>
+  <div class="container">
+    <h2>Exams</h2>
+    <div class="row">
+      <!-- Loop to generate exam cards -->
+      <div th:each="exam : ${exams}" class="col-md-4">
+        <div class="card exam-card">
+          <div class="card-body">
+            <h5 class="card-title" th:text="${exam.title}">Exam Title</h5>
+            <p class="card-text" th:text="${exam.description}">Exam Description</p>
+            <a th:href="@{/register}" class="btn">Register</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>
