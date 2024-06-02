@@ -1,8 +1,4 @@
 package com.naven.examregister.service;
-
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +27,9 @@ public class LoginService {
     public Exam getExamByTitle(String title) {
         return exp.findByTitle(title);
     }
-    public List<Exam> getAllExams() {
-        // Retrieve all exams from the repository
-        return exp.findAll();
+
+    public void setRep(LoginRepo rep) {
+        this.rep = rep;
     }
     
     

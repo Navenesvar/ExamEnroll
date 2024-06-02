@@ -1,6 +1,7 @@
 package com.naven.examregister.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,8 @@ public class ExamController {
     public String showRegisteredStudents(Model model) {
        List<RegisteredUser> students = registeredUserService.getAllRegisteredStudents();
        List<SignUp> users = signUpService.getAllUserDetails();
+       Map<String, List<String>> usersByExamTitle = registeredUserService.getRegisteredUsersByExamTitle();
+    model.addAttribute("usersByExamTitle", usersByExamTitle);
        model.addAttribute("students", students);
        model.addAttribute("users", users);
        return "registration";

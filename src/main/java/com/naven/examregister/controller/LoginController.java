@@ -52,19 +52,18 @@ public class LoginController {
         if (user.getUsername().equals("admin") && user.getPassword().equals("exam")) {
             // If the user is an admin, redirect to the registration page
             return "redirect:/registration";
-        }
-        else if (Objects.nonNull(oauthUser)) {
-            // If successful, redirect to display page
-            String name = user.getUsername();
-            System.out.println("Username:"+name);
-            model.addAttribute("name", name);
-            return "redirect:/display";
+        } else if (Objects.nonNull(oauthUser)) {
+            // If successful, redirect to display page with username parameter
+            String username = user.getUsername();
+            return "redirect:/display?username=" + username;
         } else {
             // If unsuccessful, add error message to model and return to login page
             model.addAttribute("error", "Invalid username or password");
             return "login";
         }
     }
+    
+    
     @GetMapping("/signup")
     public String showSignUpForm() {
         return "signup";
@@ -72,25 +71,62 @@ public class LoginController {
 
     @PostMapping("/signup")
     public String signUp(@RequestParam("username") String username,
-                         @RequestParam("password") String password,
-                         @RequestParam("college") String college,
-                         @RequestParam("department") String department,
-                         @RequestParam("year_of_study") String year_of_study) {
-        SignUp signUp = new SignUp(username, password, college, department, year_of_study);
-        signUpService.save(signUp);
-        Login1 login1 = new Login1(username,password);
-        service.save(login1);
-        return "redirect:/login"; // Redirect to login page after sign-up
+                     @RequestParam("email") String email,
+                     @RequestParam("password") String password,
+                     @RequestParam("confirmPassword") String confirmPassword, Model model) {
+    // Check if the username or email already exists
+    if (signUpService.existsByUsername(username) || signUpService.existsByEmail(email)) {
+        // Username or email already exists, handle this scenario
+        // You can redirect to a signup page with an error message
+        model.addAttribute("error", "User exists");
+
+        return "signup";
     }
+
+    // Check if the password and confirm password match
+    if (!password.equals(confirmPassword)) {
+        // Passwords don't match, handle this scenario
+        // You can redirect to a signup page with an error message
+        model.addAttribute("error", "Passwords don't match");
+
+        return "signup";
+    }
+
+    // If everything is fine, proceed with creating a new SignUp object and saving it
+    try {
+        SignUp signUp = new SignUp(username, email, password, confirmPassword);
+        signUpService.save(signUp);
+        Login1 login = new Login1(username,password);
+        service.save(login);
+    } catch (Exception e) {
+        e.printStackTrace(); // Log the exception or handle it appropriately
+    }// Redirect to login page after sign-up
+    return "redirect:/login";
+}
+
     @GetMapping("/profile")
-    public String showprofile() {
+    public String showprofile(@RequestParam("username") String username,Model model) {
+        List<RegisteredUser> registeredCourses = registeredUserService.getRegisteredCoursesByUsername(username);
+        SignUp user = signUpService.findByUsername(username);
+
+    // Pass registered courses and username to the view
+        model.addAttribute("username", username);
+        model.addAttribute("user", user);
+        model.addAttribute("registeredCourses", registeredCourses);
+        
         return "profile";
     }
     
     @GetMapping("/register")
-        public String showRegistrationPage(){
-        return "register";
-    }
+    public String showRegistrationPage(@RequestParam("username") String username,
+                                   @RequestParam("examTitle") String examTitle,
+                                   Model model) {
+    // Pass username and exam title to the registration page
+    model.addAttribute("username", username);
+    model.addAttribute("examTitle", examTitle);
+    return "register";
+}
+
 
 
     @PostMapping("/register")
@@ -99,26 +135,28 @@ public class LoginController {
                                 @RequestParam("college") String college,
 
                                 @RequestParam("department") String department,
-                                @RequestParam("yearOfStudy") String year_of_study) {
-    RegisteredUser reg = new RegisteredUser(firstname,lastname,college,department,year_of_study);
+                                @RequestParam("yearOfStudy") String year_of_study,
+                                @RequestParam("examTitle") String exam_title,
+                                @RequestParam("username") String username) {
+    RegisteredUser reg = new RegisteredUser(username,firstname,lastname,exam_title,college,department,year_of_study);
    
    registeredUserService.saveUser(reg);
-    return "redirect:/success"; // Redirect to success page
+    return "redirect:/success?username=" + username; // Redirect to success page
 }
-    @GetMapping("/display")
-    public String display(Model model) {
-        // Get all exams from the service
-        List<Exam> exams = examservice.getAllExams();
+@GetMapping("/display")
+public String display(Model model, @RequestParam("username") String username) {
+    // Get all exams from the service
+    List<Exam> exams = examservice.getAllExams();
+    // Add exams and username to the model
+    model.addAttribute("exams", exams);
+    model.addAttribute("username", username);
+    return "display";
+}
 
-        // Add exams to the model
-        model.addAttribute("exams", exams);
-        return "display";
-    }
     @GetMapping("/success")
-    public String showSuccessPage()  {
+    public String showSuccessPage(@RequestParam("username") String username,Model model)  {
+        model.addAttribute("username", username);
         return "success";
-    }
-    
-    
+    }   
 }
 

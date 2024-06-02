@@ -8,30 +8,35 @@
     /* Custom styles */
     body {
       font-family: Arial, sans-serif;
-      background-color: #f8f9fa; /* Light gray background */
+      background-color: #18182a; /* Dark indigo background */
       margin: 0;
       padding: 0;
     }
     .container {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 0 20px;
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
     h2 {
       text-align: center;
       margin-bottom: 30px;
-      color: #333; /* Dark text color */
+      color: #007bff; /* Primary color */
     }
     .form-input {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
     .form-input label {
       display: block;
       font-weight: bold;
+      margin-bottom: 5px;
+      color: #555; /* Text color */
     }
     .form-input input {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
       box-sizing: border-box;
@@ -40,21 +45,27 @@
       text-align: center;
     }
     .form-submit button {
-      background-color: #007bff;
-      color: #fff;
+      background-color: #007bff; /* Primary color */
+      color: #fff; /* White text color */
       border: none;
-      padding: 10px 20px;
+      padding: 12px 30px;
       border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.3s ease; /* Smooth color transition */
+    }
+    .form-submit button:hover {
+      background-color: #0056b3; /* Darker shade on hover */
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Register for Exam</h2>
 
+  <div class="container">
+    <h2>Register for <span th:text="${examTitle}"></span></h2>
     <form action="/register" th:action="@{/register}" method="post">
-      <!-- Hidden field to store exam title -->
+      <!-- Hidden input field to store the exam title -->
+      <input type="hidden" id="username" name="username" th:value="${username}">
+      <input type="hidden" id="examTitle" name="examTitle" th:value="${examTitle}">
       
       <div class="form-input">
         <label for="firstName">First Name:</label>
@@ -77,7 +88,7 @@
         <input type="text" id="yearOfStudy" name="yearOfStudy" required>
       </div>
       <div class="form-submit">
-        <button type="submit">Register</button>
+        <button type="submit" name="registerButton">Register</button>
       </div>
     </form>
   </div>

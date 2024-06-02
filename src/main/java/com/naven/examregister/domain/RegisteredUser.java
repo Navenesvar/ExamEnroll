@@ -1,4 +1,5 @@
 package com.naven.examregister.domain;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -6,24 +7,29 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="register")
+@Table(name = "registered_user")
 public class RegisteredUser {
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+  //  @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sno;
+    private String username; // Added username field
     private String firstname;
     private String lastname;
     private String college;
     private String department;
     private String year_of_study;
+    private String exam_title; // Added examTitle field
 
     // Constructors, getters, and setters
-    public RegisteredUser() {}
+    public RegisteredUser() {
+    }
 
-    public RegisteredUser(String firstName, String lastName, String college, String department, String yearOfStudy) {
+    public RegisteredUser(String username, String firstName, String lastName, String examTitle, String college, String department, String yearOfStudy) {
+        this.username = username;
         this.firstname = firstName;
         this.lastname = lastName;
+        this.exam_title = examTitle;
         this.college = college;
         this.department = department;
         this.year_of_study = yearOfStudy;
@@ -37,6 +43,14 @@ public class RegisteredUser {
 
     public void setId(int id) {
         this.sno = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -77,5 +91,13 @@ public class RegisteredUser {
 
     public void setYearOfStudy(String yearOfStudy) {
         this.year_of_study = yearOfStudy;
+    }
+
+    public String getExamTitle() {
+        return exam_title;
+    }
+
+    public void setExamTitle(String examTitle) {
+        this.exam_title = examTitle;
     }
 }

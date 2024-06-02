@@ -15,5 +15,8 @@ public interface SignUpRepository extends JpaRepository<SignUp, Integer> {
     List<SignUp> findAll();
     @SuppressWarnings("unchecked")
     SignUp save(SignUp signUp);
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
+    SignUp findByUsername(String username);
 }
 

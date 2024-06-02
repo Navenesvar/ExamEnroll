@@ -15,21 +15,18 @@ public class SignUp {
     private int id;
     
     private String username;
+    private String email;
     private String password;
-    private String college;
-    private String department;
-    private String year_of_study;
+    private String confirmPassword;
     
     // Constructors, getters, and setters
-    public SignUp() {
-    }
+    public SignUp() {}
 
-    public SignUp(String username, String password, String college, String department, String yearOfStudy) {
+    public SignUp(String username, String email, String password, String confirmPassword) {
         this.username = username;
+        this.email = email;
         this.password = password;
-        this.college = college;
-        this.department = department;
-        this.year_of_study = yearOfStudy;
+        this.confirmPassword = confirmPassword;
     }
 
     // Getters and setters
@@ -49,6 +46,14 @@ public class SignUp {
         this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -57,27 +62,11 @@ public class SignUp {
         this.password = password;
     }
 
-    public String getCollege() {
-        return college;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setCollege(String college) {
-        this.college = college;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getYearOfStudy() {
-        return year_of_study;
-    }
-
-    public void setYearOfStudy(String yearOfStudy) {
-        this.year_of_study = yearOfStudy;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }

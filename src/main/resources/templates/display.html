@@ -8,28 +8,35 @@
     /* Custom styles */
     body {
       font-family: Arial, sans-serif;
-      background-color: #f8f9fa; /* Light gray background */
+      background-color: #18182a; /* Dark shining indigo */
       margin: 0;
       padding: 0;
     }
-    
     .navbar-brand {
-  display: inline-block;
-  vertical-align: middle; /* Align vertically to center */
-}
-
-.welcome-container {
-  display: inline-flex;
-  align-items: center; /* Align items vertically */
-  margin-left: auto; /* Pushes the container to the right */
-}
-
-.welcome-container h3 {
-  margin-right: 10px; /* Add some spacing between the Welcome message and the Logout link */
-}
-
-    .navbar-brand img {
-      height: 30px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .welcome-container {
+      display: inline-flex;
+      align-items: center;
+      margin-left: auto;
+    }
+    .welcome-container h3 {
+      margin-right: 10px;
+      color: #fff; /* White text color */
+    }
+      .logout-link {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: black;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .logout-link:hover {
+      background-color: #0056b3; /* Darker shade on hover */
     }
     .container {
       max-width: 800px;
@@ -39,8 +46,12 @@
     h2 {
       text-align: center;
       margin-bottom: 30px;
-      color: #333; /* Dark text color */
+      color: #fff; /* White text color */
     }
+    .navbar-brand img {
+  height: 30px; /* Adjust the height as needed */
+  width: auto; /* Maintain aspect ratio */
+}
     .exam-card {
       background-color: #fff; /* White card background */
       border: 1px solid #dee2e6; /* Gray border */
@@ -94,31 +105,21 @@
     th {
       background-color: #f2f2f2;
     }
-      .logout-link {
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        background-color: black;
-        color: white;
-        padding: 10px 20px;
-        text-decoration: none;
-        border-radius: 5px;
-    }
   </style>
 </head>
 <body>
   <!-- Navbar -->
   <nav>
-  <div class="navbar-brand">
-    <a href="/profile">
-      <img src="/images/profile.jpg" alt="Profile">
-    </a>
-  </div>
-  <div class="welcome-container">
-    <h3>Welcome</h3>
-    <a th:href="@{/login}" class="logout-link">Logout</a>
-  </div>
-</nav>
+    <div class="navbar-brand">
+      <a th:href="@{/profile(username=${username})}">
+        <img src="/images/profile.jpg" alt="Profile">
+      </a>
+    </div>
+    <div class="welcome-container">
+  <h3>Welcome <span th:text="${username}"></span></h3>
+  <a th:href="@{/login}" class="logout-link">Logout</a>
+</div>
+  </nav>
   <div class="container">
     <h2>Exams</h2>
     <div class="row">
@@ -128,12 +129,11 @@
           <div class="card-body">
             <h5 class="card-title" th:text="${exam.title}">Exam Title</h5>
             <p class="card-text" th:text="${exam.description}">Exam Description</p>
-            <a th:href="@{/register}" class="btn">Register</a>
+          <a th:href="@{/register(username=${username}, examTitle=${exam.title})}" class="btn">Register</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
 </body>
 </html>

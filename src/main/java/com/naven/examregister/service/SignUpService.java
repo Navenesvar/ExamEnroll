@@ -25,6 +25,18 @@ public class SignUpService {
         return signUpRepository.findAll();
 
     }
+    public boolean existsByUsername(String username) {
+        return signUpRepository.existsByUsername(username);
+    }
+
+    public boolean existsByEmail(String email) {
+        return signUpRepository.existsByEmail(email);
+    }
+
+    public SignUp findByUsername(String username) {
+        return signUpRepository.findByUsername(username);
+        
+    }
 
    
    
